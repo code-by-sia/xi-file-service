@@ -56,11 +56,10 @@ src/
     file-utils.xi
     stored-file.xi
   test/
-    app.xi
-    default-test-assert.xi
+    disk-file-service-test.xi
+    file-failure-store-test.xi
     file-utils-test.xi
-    test-assert.xi
-    test-suite.xi
+    test-module.xi
 ```
 
 ## Build
@@ -72,8 +71,9 @@ xc src/app.xi
 ## Test
 
 ```sh
-xc src/test/app.xi
-./build/file-server-tests
+xi test src/test/file-utils-test.xi
+xi test src/test/file-failure-store-test.xi
+xi test src/test/disk-file-service-test.xi
 ```
 
 ## Run

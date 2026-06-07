@@ -1,23 +1,15 @@
 import "../business/business.xi"
-import "default-test-assert.xi"
-import "test-assert.xi"
-import "test-suite.xi"
+import "test-module.xi"
 
-class FileUtilsTest implements TestSuite {
-    deps {
-        utils: FileUtility
-        assertions: TestAssert
-    }
+test "accepts safe file paths" (utils: FileUtility) {
+    assert utils.safePath("hello.txt")
+    assert utils.safePath("docs/notes.txt")
+}
 
-    producer run() -> Integer {
-        let failures = 0
-        failures = failures + assertions.expectBool("safe leaf path", utils.safePath("hello.txt"), true)
-        failures = failures + assertions.expectBool("safe nested path", utils.safePath("docs/notes.txt"), true)
-        failures = failures + assertions.expectBool("empty path rejected", utils.safePath(""), false)
-        failures = failures + assertions.expectBool("absolute path rejected", utils.safePath("/tmp/notes.txt"), false)
-        failures = failures + assertions.expectBool("directory path rejected", utils.safePath("docs/"), false)
-        failures = failures + assertions.expectBool("parent traversal rejected", utils.safePath("../notes.txt"), false)
-        failures = failures + assertions.expectBool("backslash path rejected", utils.safePath("docs\\notes.txt"), false)
-        return failures
-    }
+test "rejects unsafe file paths" (utils: FileUtility) {
+    assert not utils.safePath("")
+    assert not utils.safePath("/tmp/notes.txt")
+    assert not utils.safePath("docs/")
+    assert not utils.safePath("../notes.txt")
+    assert not utils.safePath("docs\\notes.txt")
 }

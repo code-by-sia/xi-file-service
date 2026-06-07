@@ -62,6 +62,27 @@ src/
     test-module.xi
 ```
 
+## Getting Started
+
+Keep the local Xi toolchain current before building:
+
+```sh
+xi update
+```
+
+`xi update` checks the latest [code-by-sia/x](https://github.com/code-by-sia/x)
+release, downloads the matching package for your platform, and updates the local
+`xi` and `xc` commands.
+
+Refresh the Xi language guide for AI-assisted development:
+
+```sh
+xi skill
+```
+
+`xi skill` prints the current Xi language and testing guide, including syntax,
+dependency injection, module metadata, interrupts, and native `xi test` usage.
+
 ## Build
 
 ```sh

@@ -1,5 +1,5 @@
-import "models/stored-file.xi"
-import "interrupts/file-service-failure.xi"
+import "stored-file.xi"
+import "file-service-failure.xi"
 import "file-utility.xi"
 import "file-utils.xi"
 import "file-service.xi"

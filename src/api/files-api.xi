@@ -1,6 +1,6 @@
 import "std/web.xi"
-import "../service/service.xi"
-import "../dto/file-list.xi"
+import "../business/business.xi"
+import "file-list.xi"
 
 class FilesApi implements WebRequestHandler {
     deps { store: FileService }

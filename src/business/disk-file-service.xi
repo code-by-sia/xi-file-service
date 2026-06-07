@@ -2,8 +2,8 @@ import "std/fs.xi"
 import "std/path.xi"
 import "file-service.xi"
 import "file-utility.xi"
-import "models/stored-file.xi"
-import "interrupts/file-service-failure.xi"
+import "stored-file.xi"
+import "file-service-failure.xi"
 
 class DiskFileService implements FileService {
     deps { utils: FileUtility }

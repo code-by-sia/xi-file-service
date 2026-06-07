@@ -44,3 +44,9 @@ jobs:
 
       - name: Build
         run: xc src/app.xi
+
+      - name: Build tests
+        run: xc src/test/app.xi
+
+      - name: Run tests
+        run: ./build/file-server-tests

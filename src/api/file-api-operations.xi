@@ -1,6 +1,6 @@
 import "std/web.xi"
-import "../dto/file-write.xi"
-import "../service/models/stored-file.xi"
+import "file-write.xi"
+import "../business/stored-file.xi"
 
 interface FileApiOperations {
     producer getFile(req: HttpRequest) -> StoredFile

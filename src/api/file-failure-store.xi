@@ -1,4 +1,4 @@
-import "../service/interrupts/file-service-failure.xi"
+import "../business/file-service-failure.xi"
 import "file-failure-state.xi"
 
 atom fileFailure {

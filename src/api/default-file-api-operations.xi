@@ -1,7 +1,7 @@
 import "std/web.xi"
-import "../dto/file-write.xi"
-import "../service/service.xi"
-import "../service/models/stored-file.xi"
+import "file-write.xi"
+import "../business/business.xi"
+import "../business/stored-file.xi"
 import "file-api-operations.xi"
 import "file-failure-store.xi"
 

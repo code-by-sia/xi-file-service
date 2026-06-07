@@ -15,19 +15,21 @@ uses the mount prefix to decide which controller receives a request; `FileUtils`
 then reads the rest of `req.path` as the file path.
 
 The HTTP controllers depend on the `FileService` interface and an API-side
-`FileApiOperations` helper. The disk-backed service
-implementation lives in `src/service/disk-file-service.xi`; reusable
-path/root/safety helpers live in the `FileUtils` class at
-`src/service/file-utils.xi`. Xi's DI system injects those classes automatically.
+`FileApiOperations` helper. The disk-backed service implementation lives in the
+business domain at `src/business/disk-file-service.xi`; reusable path/root/safety
+helpers live in the `FileUtils` class at `src/business/file-utils.xi`. Xi's DI
+system injects those classes automatically.
 
 The service layer returns domain values only: file lists, stored file content,
 and operation messages. It signals `FileServiceFailure` interrupts for domain
 failures such as invalid paths, missing files, conflicts, or storage failures.
 The API layer catches those interrupts and translates them to HTTP responses.
 
-Each class, type, and interface lives in its own `.xi` file. `src/app.xi`
-contains the `main` entrypoint and the `App` module metadata. `src/service/service.xi`
-is an import-only manifest for the service layer.
+Each class, type, and interface lives in its own `.xi` file. Source folders are
+organized by domain: `src/api` for HTTP concerns, `src/business` for business
+rules and storage, and `src/test` for tests. `src/app.xi` contains the main
+entrypoint and the `App` module metadata. `src/business/business.xi` is an
+import-only manifest for the business domain.
 
 ## Structure
 
@@ -36,32 +38,42 @@ src/
   app.xi
   api/
     default-file-api-operations.xi
+    file-body.xi
     file-api.xi
     file-api-operations.xi
     file-failure-state.xi
     file-failure-store.xi
-    files-api.xi
-  dto/
-    file-body.xi
     file-list.xi
     file-message.xi
     file-write.xi
-  service/
+    files-api.xi
+  business/
+    business.xi
     disk-file-service.xi
+    file-service-failure.xi
     file-service.xi
     file-utility.xi
     file-utils.xi
-    interrupts/
-      file-service-failure.xi
-    models/
-      stored-file.xi
-    service.xi
+    stored-file.xi
+  test/
+    app.xi
+    default-test-assert.xi
+    file-utils-test.xi
+    test-assert.xi
+    test-suite.xi
 ```
 
 ## Build
 
 ```sh
 xc src/app.xi
+```
+
+## Test
+
+```sh
+xc src/test/app.xi
+./build/file-server-tests
 ```
 
 ## Run

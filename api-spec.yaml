@@ -1,0 +1,228 @@
+openapi: 3.1.0
+info:
+  title: Xi File Server API
+  version: 1.0.0
+  description: |
+    HTTP API for creating, listing, reading, updating, and deleting files stored
+    under the server's local `./files` directory.
+  license:
+    name: MIT
+  x-programming-language:
+    name: Xi
+    url: https://github.com/code-by-sia/x
+externalDocs:
+  description: Xi programming language
+  url: https://github.com/code-by-sia/x
+servers:
+  - url: http://127.0.0.1:8080
+    description: Local development server
+tags:
+  - name: Files
+    description: File storage operations
+paths:
+  /files:
+    get:
+      tags:
+        - Files
+      summary: List files
+      operationId: listFiles
+      responses:
+        '200':
+          description: Files currently stored by the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileList'
+  /file/{path}:
+    parameters:
+      - $ref: '#/components/parameters/FilePath'
+    get:
+      tags:
+        - Files
+      summary: Get a file
+      operationId: getFile
+      responses:
+        '200':
+          description: File content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileBody'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Files
+      summary: Create a file
+      operationId: createFile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileWrite'
+      responses:
+        '200':
+          description: File created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMessage'
+              example:
+                ok: true
+                message: created
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Files
+      summary: Update a file
+      operationId: updateFile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileWrite'
+      responses:
+        '200':
+          description: File updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMessage'
+              example:
+                ok: true
+                message: updated
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Files
+      summary: Delete a file
+      operationId: deleteFile
+      responses:
+        '200':
+          description: File deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMessage'
+              example:
+                ok: true
+                message: deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  parameters:
+    FilePath:
+      name: path
+      in: path
+      required: true
+      description: |
+        Safe relative file path appended after `/file/`.
+
+        The Xi server accepts nested relative paths such as `docs/notes.txt`.
+        OpenAPI path parameters are segment-oriented, so generated clients may
+        need to append nested paths manually. Paths must not be empty, absolute,
+        end in `/`, contain `..`, or contain backslashes.
+      schema:
+        type: string
+        minLength: 1
+        examples:
+          - hello.txt
+          - docs/notes.txt
+  schemas:
+    FileList:
+      type: object
+      required:
+        - files
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+          examples:
+            - [hello.txt, docs/notes.txt]
+    FileBody:
+      type: object
+      required:
+        - path
+        - content
+      properties:
+        path:
+          type: string
+          examples:
+            - hello.txt
+        content:
+          type: string
+          examples:
+            - hello
+    FileWrite:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          examples:
+            - hello
+    FileMessage:
+      type: object
+      required:
+        - ok
+        - message
+      properties:
+        ok:
+          type: boolean
+          examples:
+            - true
+        message:
+          type: string
+          examples:
+            - created
+  responses:
+    BadRequest:
+      description: Invalid file path.
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: file path must be a safe relative path
+    NotFound:
+      description: File not found.
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: file not found
+    Conflict:
+      description: File already exists.
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: file already exists
+    InternalServerError:
+      description: Storage failure.
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: failed to update file

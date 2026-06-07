@@ -76,6 +76,17 @@ The default port is `8080`. You can pass another port:
 ./build/app 18080
 ```
 
+## Docker
+
+```sh
+docker build -t xi-file-server .
+docker run --rm -p 8080:8080 -v "$(pwd)/files:/app/files" xi-file-server
+```
+
+## OpenAPI
+
+The API is described in `api-spec.yaml`.
+
 ## Endpoints
 
 ```sh

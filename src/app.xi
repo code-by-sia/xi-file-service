@@ -16,4 +16,8 @@ module App {
     id = "file-server"
     name = "Xi File Server"
     description = "HTTP file server with create, delete, update, list, and get endpoints"
+    version = "1.0.0"
+    license = "MIT"
+    includes = ["./src/**"]
+    excludes = ["./src/test/**"]
 }

@@ -56,9 +56,9 @@ src/
     file-utils.xi
     stored-file.xi
   test/
-    disk-file-service-test.xi
-    file-failure-store-test.xi
-    file-utils-test.xi
+    disk-file-service_test.xi
+    file-failure-store_test.xi
+    file-utils_test.xi
     test-module.xi
 ```
 
@@ -92,9 +92,7 @@ xc src/app.xi
 ## Test
 
 ```sh
-xi test src/test/file-utils-test.xi
-xi test src/test/file-failure-store-test.xi
-xi test src/test/disk-file-service-test.xi
+xi test --all
 ```
 
 ## Run

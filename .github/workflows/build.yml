@@ -46,7 +46,4 @@ jobs:
         run: xc src/app.xi
 
       - name: Run tests
-        run: |
-          xi test src/test/file-utils-test.xi
-          xi test src/test/file-failure-store-test.xi
-          xi test src/test/disk-file-service-test.xi
+        run: xi test --all

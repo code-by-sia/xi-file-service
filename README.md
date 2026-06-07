@@ -4,6 +4,8 @@ A tiny Xi HTTP file server with create, delete, update, list, and get endpoints.
 Files are stored under `./files`, and API file paths must be safe relative paths
 such as `notes.txt` or `docs/notes.txt`.
 
+Programming language: [code-by-sia/x](https://github.com/code-by-sia/x)
+
 Built against Xi's documented `std/web` model:
 https://code-by-sia.github.io/x/web
 

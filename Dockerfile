@@ -45,7 +45,7 @@ FROM ubuntu:24.04 AS runtime
 
 WORKDIR /app
 
-COPY --from=build /workspace/build/app /app/file-server
+COPY --from=build /workspace/build/file-server /app/file-server
 
 RUN mkdir -p /app/files
 

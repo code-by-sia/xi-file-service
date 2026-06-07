@@ -26,7 +26,7 @@ failures such as invalid paths, missing files, conflicts, or storage failures.
 The API layer catches those interrupts and translates them to HTTP responses.
 
 Each class, type, and interface lives in its own `.xi` file. `src/app.xi`
-contains the `App` module marker and the `main` entrypoint. `src/service/service.xi`
+contains the `main` entrypoint and the `App` module metadata. `src/service/service.xi`
 is an import-only manifest for the service layer.
 
 ## Structure
@@ -67,13 +67,13 @@ xc src/app.xi
 ## Run
 
 ```sh
-./build/app
+./build/file-server
 ```
 
 The default port is `8080`. You can pass another port:
 
 ```sh
-./build/app 18080
+./build/file-server 18080
 ```
 
 ## Docker

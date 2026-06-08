@@ -64,7 +64,19 @@ src/
 
 ## Getting Started
 
-Keep the local Xi toolchain current before building:
+Install Xi and `xc` with Homebrew:
+
+```sh
+brew install code-by-sia/x/xi
+```
+
+Upgrade a Homebrew installation later with:
+
+```sh
+brew upgrade xi
+```
+
+For tarball installs, keep the local Xi toolchain current before building:
 
 ```sh
 xi update
@@ -72,7 +84,7 @@ xi update
 
 `xi update` checks the latest [code-by-sia/x](https://github.com/code-by-sia/x)
 release, downloads the matching package for your platform, and updates the local
-`xi` and `xc` commands.
+`xi` and `xc` commands in place.
 
 Refresh the Xi language guide for AI-assisted development:
 

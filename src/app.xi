@@ -18,6 +18,5 @@ module App {
             if isOk(parsed) { port = parsed.value }
         }
         web.serve(port)
-        return 0
     }
 }
